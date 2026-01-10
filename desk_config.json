@@ -1,0 +1,11 @@
+{
+  "mac_address": "0C6E3937-78B4-BA7E-A934-D4C5C9EDEC2A",
+  "adapter_name": "hci0",
+  "position_3": 1150,
+  "position_2": 1050,
+  "position_1": 680,
+  "height_tolerance": 1,
+  "scan_timeout": 5,
+  "connection_timeout": 5,
+  "movement_timeout": 5
+}
