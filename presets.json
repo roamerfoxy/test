@@ -1,0 +1,14 @@
+{
+    "Standing": {
+        "name": "Standing",
+        "height": 1050
+    },
+    "Sitting": {
+        "name": "Sitting",
+        "height": 680
+    },
+    "Focus": {
+        "name": "Focus",
+        "height": 1150
+    }
+}
