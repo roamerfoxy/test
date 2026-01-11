@@ -33,7 +33,7 @@ class DeskService:
     def __init__(self):
         self.driver = DeskDriver(settings.mac_address)
         self.state = DeskState(
-            name="my_desk",
+            name="desk_controller",
             current_height=1200,
             target_height=1300,
             is_moving=False,

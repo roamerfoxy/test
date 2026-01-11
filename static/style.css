@@ -1,0 +1,189 @@
+:root {
+    --bg-color: #121212;
+    --surface-color: #1e1e1e;
+    --primary-color: #bb86fc;
+    --text-color: #ffffff;
+    --secondary-text: #b0b0b0;
+    --danger-color: #cf6679;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.status.connected { color: #03dac6; border: 1px solid #03dac6; }
+.status.disconnected { color: var(--danger-color); border: 1px solid var(--danger-color); }
+
+.display {
+    text-align: center;
+    background-color: var(--surface-color);
+    padding: 30px;
+    border-radius: 16px;
+}
+
+#current-height {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.unit {
+    color: var(--secondary-text);
+    font-size: 1.2rem;
+}
+
+.target {
+    margin-top: 10px;
+    color: var(--primary-color);
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.control-btn {
+    flex: 1;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border: none;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.control-btn:active { background-color: #333; }
+
+.stop-btn {
+    flex: 1;
+    background-color: var(--danger-color);
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.preset-card {
+    background-color: var(--surface-color);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.preset-info {
+    cursor: pointer;
+    flex: 1;
+}
+
+.preset-info strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.preset-info span {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+}
+
+.preset-actions-row {
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+}
+
+.action-btn {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #444;
+    color: var(--text-color);
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: #333;
+}
+
+.action-btn.delete {
+    color: var(--danger-color);
+    border-color: rgba(207, 102, 121, 0.3);
+}
+
+.action-btn.delete:hover {
+    background: rgba(207, 102, 121, 0.1);
+}
+
+.action-btn.update {
+    color: #03dac6;
+    border-color: rgba(3, 218, 198, 0.3);
+}
+
+.action-btn.update:hover {
+    background: rgba(3, 218, 198, 0.1);
+}
+
+.preset-actions {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 2;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--surface-color);
+    color: white;
+}
+
+.preset-actions button {
+    flex: 1;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}

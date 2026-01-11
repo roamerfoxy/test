@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desk Controller</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Desk Controller</h1>
+            <div id="connection-status" class="status disconnected">Connecting...</div>
+        </header>
+
+        <section class="display">
+            <div id="current-height">---</div>
+            <div class="unit">mm</div>
+            <div id="target-height" class="target">Target: ---</div>
+        </section>
+
+        <section class="controls">
+            <button id="btn-up" class="control-btn" onmousedown="startMove(50)" onmouseup="stopMove()">▲</button>
+            <button id="btn-stop" class="stop-btn" onclick="stopDesk()">STOP</button>
+            <button id="btn-down" class="control-btn" onmousedown="startMove(-50)" onmouseup="stopMove()">▼</button>
+        </section>
+
+        <section class="presets">
+            <h2>Presets</h2>
+            <div id="presets-grid" class="grid">
+                <!-- Presets injected here -->
+            </div>
+            <div class="preset-actions">
+                 <input type="text" id="new-preset-name" placeholder="Preset Name">
+                 <button onclick="saveCurrentAsPreset()">Save Current</button>
+            </div>
+        </section>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
