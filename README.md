@@ -26,11 +26,17 @@ Then install the project:
 uv sync
 ```
 
-### 3. Configuration (.env)
+3. **Configuration (.env)**
 
-Create a `.env` file and add your desk's MAC address:
-```bash
-echo "DESK_MAC_ADDRESS=XX:XX:XX:XX:XX:XX" > .env
+Create a `.env` file and add your desk's MAC address. You can provide OS-specific defaults or a single override:
+
+```env
+# OS-specific defaults (used if DESK_MAC_ADDRESS is not set)
+DESK_MACOS_MAC_ADDRESS=XX:XX:XX:XX:XX:XX
+DESK_LINUX_MAC_ADDRESS=XX:XX:XX:XX:XX:XX
+
+# Generic override for all platforms
+# DESK_MAC_ADDRESS=XX:XX:XX:XX:XX:XX
 ```
 
 ### 4. Running the Application
