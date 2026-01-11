@@ -97,8 +97,15 @@ class DeskDriver:
 
     async def disconnect(self):
         """Disconnects from the desk's BLE service if connected."""
-        if self.client and self.client.is_connected:
-            await self.client.disconnect()
+        try:
+            if self.client and self.client.is_connected:
+                await self.client.disconnect()
+        except (BleakError, EOFError, Exception) as e:
+            logger.warning(
+                f"Error during disconnect (possibly already disconnected): {e}"
+            )
+        finally:
+            self.client = None
 
     async def wake_up(self):
         """Sends a wake-up command to the desk."""

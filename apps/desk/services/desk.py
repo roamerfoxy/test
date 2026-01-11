@@ -41,6 +41,7 @@ class DeskService:
         )
         self.presets_file = settings.presets_file
         self.presets = self.load_presets()
+        self.current_task: Optional[asyncio.Task] = None
 
     def load_presets(self) -> Presets:
         if os.path.exists(self.presets_file):
@@ -105,7 +106,13 @@ class DeskService:
     def set_height(self, height: int):
         """Sets the target height of the desk and starts moving asynchronously."""
         logger.info(f"Setting desk height to {height}mm")
-        asyncio.create_task(self._async_set_height(height))
+
+        # Cancel existing task if it exists
+        if self.current_task and not self.current_task.done():
+            logger.info("Canceling existing movement task")
+            self.current_task.cancel()
+
+        self.current_task = asyncio.create_task(self._async_set_height(height))
         self.state.target_height = height
 
     async def _async_set_height(self, height: int):
@@ -135,6 +142,8 @@ class DeskService:
                         break
                 else:
                     stationary_count = 0
+        except asyncio.CancelledError:
+            logger.info("Movement task was canceled.")
         except Exception as e:
             logger.error(f"Error setting desk height to {height}: {e}")
             raise
