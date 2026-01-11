@@ -9,7 +9,7 @@ from apps.desk.models.presets import (
     PresetHeightUpdateResponse,
 )
 from apps.desk.services.desk import DeskService
-from apps.desk.dependencies import get_desk_service
+from apps.desk.api.dependencies import get_desk_service
 from fastapi import APIRouter, HTTPException, Depends
 
 router = APIRouter(prefix="/presets", tags=["presets"])

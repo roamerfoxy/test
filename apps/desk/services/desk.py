@@ -39,7 +39,7 @@ class DeskService:
             is_moving=False,
             active_preset=None,
         )
-        self.presets_file = "presets.json"
+        self.presets_file = settings.presets_file
         self.presets = self.load_presets()
 
     def load_presets(self) -> Presets:
@@ -64,6 +64,7 @@ class DeskService:
 
     def save_presets(self):
         try:
+            os.makedirs(os.path.dirname(self.presets_file), exist_ok=True)
             with open(self.presets_file, "w") as f:
                 # Dump the root dict
                 f.write(

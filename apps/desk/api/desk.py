@@ -6,7 +6,7 @@ from apps.desk.models.desk import DeskState, HeightUpdateRequest, HeightUpdateRe
 from apps.desk.models.presets import PresetApplyRequest, PresetApplyResponse
 
 from apps.desk.services.desk import DeskService
-from apps.desk.dependencies import get_desk_service
+from apps.desk.api.dependencies import get_desk_service
 
 router = APIRouter(prefix="/desk", tags=["desk"])
 

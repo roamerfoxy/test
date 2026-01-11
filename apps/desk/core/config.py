@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     adapter_name: str = "hci0"
     max_height: int = 1400
     min_height: int = 600
+    presets_file: str = "data/presets.json"
 
     @field_validator("mac_address")
     @classmethod
