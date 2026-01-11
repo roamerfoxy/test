@@ -134,6 +134,9 @@ class DeskService:
                 # Safety/Obstruction case: Desk stopped moving unexpectedly
                 if not self.state.is_moving:
                     stationary_count += 1
+                    logger.info(
+                        f"Desk stopped moving. Stationary count: {stationary_count}"
+                    )
                     # 0.1s sleep * 50 = 5 seconds
                     if stationary_count >= 50:
                         logger.warning(
