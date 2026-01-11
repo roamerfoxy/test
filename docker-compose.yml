@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  desk-controller:
+    build: .
+    container_name: desk-controller
+    restart: always
+    privileged: true
+    network_mode: host
+    environment:
+      - DESK_MAC_ADDRESS=${DESK_MAC_ADDRESS:-0C:6E:39:37:78:B4}
+      - DESK_ADAPTER_NAME=${DESK_ADAPTER_NAME:-hci0}
+    volumes:
+      - /var/run/dbus:/var/run/dbus
+      - ./data:/app/data
+      - ./logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  data:
+  logs:
