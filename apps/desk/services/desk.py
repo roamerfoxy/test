@@ -126,6 +126,13 @@ class DeskService:
                 await self.driver.move_to_height(height)
                 await asyncio.sleep(0.1)
 
+                # log current state
+                logger.debug(
+                    f"Current Height: {self.state.current_height}, "
+                    f"Target Height: {self.state.target_height}, "
+                    f"Is Moving: {self.state.is_moving}"
+                )
+
                 # Success case: Target reached (within tolerance, usually handled by desk/firmware)
                 if self.state.current_height == height:
                     logger.info(f"Target height {height} reached.")
