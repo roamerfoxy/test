@@ -112,10 +112,21 @@ class DeskService:
             logger.info("Canceling existing movement task")
             self.current_task.cancel()
 
-        self.current_task = asyncio.create_task(self._async_set_height(height))
+        async def move_with_retry():
+            success = await self._async_set_height(height)
+            if not success:
+                logger.info(f"Initial attempt to set height to {height}mm failed. Retrying...")
+                success = await self._async_set_height(height)
+                if success:
+                    logger.info(f"Retry successful. Target height {height}mm reached.")
+                else:
+                    logger.warning(f"Retry failed to reach target height {height}mm.")
+            return success
+
+        self.current_task = asyncio.create_task(move_with_retry())
         self.state.target_height = height
 
-    async def _async_set_height(self, height: int):
+    async def _async_set_height(self, height: int) -> bool:
         try:
             await self.driver.connect()
             await self.driver.subscribe(callback=self._update_state)
@@ -133,30 +144,31 @@ class DeskService:
                     f"Is Moving: {self.state.is_moving}"
                 )
 
-                # Success case: Target reached (within tolerance, usually handled by desk/firmware)
+                # Success case: Target reached
                 if self.state.current_height == height:
                     logger.info(f"Target height {height} reached.")
-                    break
+                    return True
 
                 # Safety/Obstruction case: Desk stopped moving unexpectedly
                 if not self.state.is_moving:
                     stationary_count += 1
-                    logger.info(
+                    logger.debug(
                         f"Desk stopped moving. Stationary count: {stationary_count}"
                     )
-                    # 0.1s sleep * 50 = 5 seconds
-                    if stationary_count >= 50:
+                    # 0.1s sleep * 20 = 2 seconds
+                    if stationary_count >= 20:
                         logger.warning(
-                            "Desk stopped moving for 5s (Obstruction detected or limit reached)."
+                            "Desk stopped moving for 2s (Obstruction detected or limit reached)."
                         )
-                        break
+                        return False
                 else:
                     stationary_count = 0
         except asyncio.CancelledError:
             logger.info("Movement task was canceled.")
+            return False
         except Exception as e:
             logger.error(f"Error setting desk height to {height}: {e}")
-            raise
+            return False
         finally:
             await self.driver.unsubscribe()
             await self.driver.stop()

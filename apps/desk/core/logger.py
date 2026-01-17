@@ -41,7 +41,7 @@ def setup_logger(name, log_file, level=logging.DEBUG):
 
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
-    stream_handler.setLevel(logging.ERROR)
+    stream_handler.setLevel(logging.DEBUG)
 
     logger = logging.getLogger(name)
     logger.setLevel(level)
